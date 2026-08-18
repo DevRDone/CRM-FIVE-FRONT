@@ -1,0 +1,291 @@
+.submissions-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  /* overflow is removed so dropdowns can overlap outside */
+}
+
+.list-header {
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.list-header h2 {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--text-secondary);
+}
+
+.search-box input {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 10px 16px 10px 40px;
+  border-radius: var(--border-radius-sm);
+  width: 250px;
+  transition: all 0.2s ease;
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 1px var(--accent-glow);
+}
+
+.table-responsive {
+  width: 100%;
+  overflow: visible;
+}
+
+.submissions-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.submissions-table th {
+  padding: 16px 32px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border-color);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.submissions-table td {
+  padding: 16px 32px;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+  transition: background-color 0.2s;
+}
+
+.submissions-table tr:last-child td {
+  border-bottom: none;
+}
+
+.submissions-table tbody tr:hover td {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.candidate-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  border: 1px solid var(--border-color);
+}
+
+.candidate-info strong {
+  display: block;
+  font-size: 15px;
+  color: var(--text-primary);
+}
+
+.candidate-email {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-badge.new {
+  background: rgba(0, 255, 102, 0.1);
+  color: var(--accent-color);
+  border: 1px solid rgba(0, 255, 102, 0.2);
+}
+
+.status-badge.new .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  box-shadow: 0 0 5px var(--accent-glow);
+}
+
+.status-badge.viewed {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.status-badge.archived {
+  background: rgba(255, 51, 102, 0.1);
+  color: var(--error-color);
+  border: 1px solid rgba(255, 51, 102, 0.2);
+}
+
+.text-right {
+  text-align: right;
+}
+
+.action-buttons {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.btn-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.btn-icon:hover {
+  background: var(--bg-secondary);
+  color: var(--accent-color);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 0 !important;
+  color: var(--text-secondary);
+}
+
+/* 3 Dots Menu */
+.menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 4px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  min-width: 160px;
+  z-index: 100;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-menu button {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  padding: 10px 16px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.dropdown-menu button:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--accent-color);
+}
+
+.dropdown-menu button.text-danger:hover {
+  background: rgba(255, 51, 102, 0.1);
+  color: var(--error-color);
+}
+
+/* Delete Modal */
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.delete-modal-content {
+  background: var(--bg-primary);
+  padding: 32px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+.delete-modal-title {
+  color: var(--text-primary);
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.delete-modal-content p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.delete-modal-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.delete-modal-actions button {
+  flex: 1;
+}
+
+.btn-primary.danger {
+  background: var(--error-color);
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 51, 102, 0.2);
+}
+
+.btn-primary.danger:hover {
+  background: #ff4d79;
+  box-shadow: 0 4px 20px rgba(255, 51, 102, 0.4);
+}
