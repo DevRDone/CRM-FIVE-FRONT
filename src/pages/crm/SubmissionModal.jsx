@@ -48,20 +48,27 @@ export default function SubmissionModal({ submission, candidateInfo, onClose, on
           
           <div className="answers-grid">
             {mappedAnswers.length > 0 ? (
-              mappedAnswers.map((ans, idx) => (
-                <div key={idx} className={`answer-card ${ans.type === 'long_text' ? 'full-width' : ''}`}>
-                  <span className="answer-label">{ans.question}</span>
-                  <div className="answer-value">
-                    {typeof ans.answer === 'string' && ans.answer.startsWith('http') ? (
-                      <a href={ans.answer} target="_blank" rel="noreferrer" className="link-answer">
-                        Acessar Link <ExternalLink size={14} />
-                      </a>
-                    ) : (
-                      ans.answer || '-'
-                    )}
+              mappedAnswers.map((ans, idx) => {
+                let displayAnswer = ans.answer;
+                if (Array.isArray(displayAnswer)) {
+                  displayAnswer = displayAnswer.join(', ');
+                }
+
+                return (
+                  <div key={idx} className={`answer-card ${ans.type === 'long_text' ? 'full-width' : ''}`}>
+                    <span className="answer-label">{ans.question || 'Pergunta sem título'}</span>
+                    <div className="answer-value">
+                      {typeof displayAnswer === 'string' && displayAnswer.startsWith('http') ? (
+                        <a href={displayAnswer} target="_blank" rel="noreferrer" className="link-answer">
+                          Acessar Link <ExternalLink size={14} />
+                        </a>
+                      ) : (
+                        displayAnswer || '-'
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))
+                );
+              })
             ) : (
               <p className="no-data">Nenhuma resposta registrada (ou erro no formato).</p>
             )}

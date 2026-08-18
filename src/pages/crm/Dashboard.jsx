@@ -71,9 +71,10 @@ export default function Dashboard() {
         <header className="topbar">
           <h2>Painel CRM</h2>
           <div className="user-profile">
+            <div className="user-avatar">A</div>
             <span>Admin</span>
             <button 
-              className="btn-text-small text-danger" 
+              className="btn-secondary text-danger" 
               onClick={() => {
                 localStorage.removeItem('fiveforms_token');
                 window.location.href = '/login';

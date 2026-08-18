@@ -25,19 +25,20 @@
 }
 
 .form-card {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-md);
   padding: 24px;
   display: flex;
   flex-direction: column;
   transition: all 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .form-card:hover {
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: var(--accent-muted);
   transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--bg-hover);
 }
 
 .form-card.inactive {
@@ -121,11 +122,17 @@
 
 .btn-icon-small {
   color: var(--text-secondary);
-  transition: color 0.2s;
+  transition: all 0.2s;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--border-radius-sm);
 }
 
 .btn-icon-small:hover {
+  background: var(--bg-hover);
   color: var(--accent-color);
 }
 

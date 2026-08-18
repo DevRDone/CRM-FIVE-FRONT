@@ -4,9 +4,9 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,7 +20,9 @@
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  background: var(--bg-primary); /* Less transparent than normal glass to ensure readability */
+  background: rgba(13, 15, 13, 0.85); /* Semi-transparent dark */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-md);
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);

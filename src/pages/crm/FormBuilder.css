@@ -153,6 +153,12 @@
   cursor: pointer;
 }
 
+.question-type-select option {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 12px;
+}
+
 .question-type-select:focus {
   outline: none;
   border-color: var(--accent-color);

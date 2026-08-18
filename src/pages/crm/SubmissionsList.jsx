@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Eye, Archive as ArchiveIcon, MoreVertical, Search, CheckCircle2, Trash2, Power } from 'lucide-react';
+import { Eye, Archive as ArchiveIcon, MoreVertical, Search, CheckCircle2, Trash2, Power, Inbox } from 'lucide-react';
 import { submissionsApi } from '../../services/api';
 import SubmissionModal from './SubmissionModal';
 import './SubmissionsList.css';
@@ -221,8 +221,14 @@ export default function SubmissionsList({ viewType = 'all' }) {
               })
             ) : (
               <tr>
-                <td colSpan="5" className="empty-state">
-                  Nenhum candidato encontrado.
+                <td colSpan="5" className="empty-state-cell">
+                  <div className="empty-state">
+                    <div className="empty-state-icon">
+                      <Inbox size={32} />
+                    </div>
+                    <h3>Nenhum candidato encontrado</h3>
+                    <p>Ainda não há respostas ou os filtros não retornaram resultados.</p>
+                  </div>
                 </td>
               </tr>
             )}

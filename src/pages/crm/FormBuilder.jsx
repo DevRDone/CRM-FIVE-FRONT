@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { formsApi } from '../../services/api';
 import { ArrowLeft, Plus, Save, GripVertical, Trash2, Settings, Type, AlignLeft, CheckSquare, CircleDot, Phone, Fingerprint } from 'lucide-react';
@@ -18,12 +18,34 @@ export default function FormBuilder() {
   const { id } = useParams();
   const isEditing = !!id;
 
-  const [formTitle, setFormTitle] = useState(isEditing ? 'Vaga Desenvolvedor Frontend' : 'Novo Formulário');
+  const [formTitle, setFormTitle] = useState('Novo Formulário');
   const [questions, setQuestions] = useState([
-    { id: 'q_1', type: 'long_text', label: 'Descreva seu objetivo', required: true, options: [] },
-    { id: 'q_2', type: 'single_choice', label: 'Nível de Experiência', required: true, options: ['Júnior', 'Pleno', 'Sênior'] }
+    { id: 'q_1', type: 'short_text', label: 'Nome Completo', required: true, options: [] },
+    { id: 'q_2', type: 'short_text', label: 'E-mail', required: true, options: [] },
+    { id: 'q_3', type: 'phone', label: 'Telefone / WhatsApp', required: true, options: [] }
   ]);
   const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(isEditing);
+
+  useEffect(() => {
+    if (isEditing) {
+      const fetchForm = async () => {
+        try {
+          const data = await formsApi.getFormById(id);
+          setFormTitle(data.title);
+          if (data.questions && data.questions.length > 0) {
+            setQuestions(data.questions);
+          }
+        } catch (error) {
+          console.error('Error fetching form:', error);
+          alert('Erro ao carregar o formulário.');
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchForm();
+    }
+  }, [id, isEditing]);
 
   const addQuestion = () => {
     setQuestions([
@@ -43,11 +65,18 @@ export default function FormBuilder() {
   const saveForm = async () => {
     try {
       setIsSaving(true);
-      await formsApi.createForm({
-        title: formTitle,
-        questions,
-        status: 'active'
-      });
+      if (isEditing) {
+        await formsApi.updateForm(id, {
+          title: formTitle,
+          questions
+        });
+      } else {
+        await formsApi.createForm({
+          title: formTitle,
+          questions,
+          status: 'active'
+        });
+      }
       navigate('/crm/forms');
     } catch (error) {
       console.error('Error saving form:', error);
@@ -59,6 +88,14 @@ export default function FormBuilder() {
 
   // Drag and Drop handlers
   const [draggedQuestionIndex, setDraggedQuestionIndex] = useState(null);
+
+  if (isLoading) {
+    return (
+      <div className="form-builder-container" style={{justifyContent: 'center', alignItems: 'center'}}>
+        <div className="glass-panel" style={{padding: '32px'}}>Carregando formulário...</div>
+      </div>
+    );
+  }
 
   const handleDragStart = (index) => {
     setDraggedQuestionIndex(index);
