@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { api } from '../../services/api';
+import { supabase } from '../../services/api';
 import './Login.css';
 
 export default function Login() {
@@ -16,13 +16,15 @@ export default function Login() {
     setLoading(true);
     
     try {
-      const res = await api.post('/auth/login', { email, password });
-      if (res.data && res.data.token) {
-        localStorage.setItem('fiveforms_token', res.data.token);
+      const { data, error: authError } = await supabase.auth.signInWithPassword({ email, password });
+      if (authError) throw authError;
+      
+      if (data && data.session) {
+        localStorage.setItem('fiveforms_token', data.session.access_token);
         navigate('/crm');
       }
     } catch (err) {
-      setError(err.response?.data?.error || 'Erro ao realizar login.');
+      setError(err.message || 'Erro ao realizar login.');
     } finally {
       setLoading(false);
     }
@@ -77,17 +79,19 @@ export default function Login() {
                 setError('');
                 setLoading(true);
                 try {
-                  const res = await api.post('/auth/login', { 
+                  const { data, error: devError } = await supabase.auth.signInWithPassword({ 
                     email: 'admin@fiveforms.com', 
                     password: 'FiveFormsProd2026!' 
                   });
-                  if (res.data && res.data.token) {
-                    localStorage.setItem('fiveforms_token', res.data.token);
+                  if (devError) throw devError;
+                  
+                  if (data && data.session) {
+                    localStorage.setItem('fiveforms_token', data.session.access_token);
                     navigate('/crm');
                   }
                 } catch (err) {
                   console.error(err);
-                  setError(err.response?.data?.error || 'Erro no login automático.');
+                  setError(err.message || 'Erro no login automático.');
                 } finally {
                   setLoading(false);
                 }
