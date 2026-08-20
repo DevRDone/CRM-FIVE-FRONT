@@ -92,9 +92,13 @@ export default function FormView() {
     return (
       <div className="public-form-container success-state">
         <div className="success-card glass-panel" style={{ borderColor: 'var(--border-color)' }}>
-          <Power size={64} className="text-secondary mb-4" />
-          <h2>Formulário Indisponível</h2>
-          <p>O prazo para preenchimento deste formulário foi encerrado ou ele foi desativado pelo recrutador.</p>
+          <img 
+            src="/logo_five.PNG" 
+            alt="Five Forms Logo" 
+            style={{ height: '140px', marginBottom: '0.75rem' }} 
+          />
+          <h2>Vaga Indisponível</h2>
+          <p>O processo seletivo para esta vaga já foi encerrado ou ela não está mais disponível no momento.</p>
         </div>
       </div>
     );
@@ -116,7 +120,10 @@ export default function FormView() {
     <div className="public-form-container">
       <div className="form-content-wrapper">
         <header className="public-form-header">
-          <h1 className="logo-text">FIVE<span className="neon-dot">.</span></h1>
+          <h1 className="logo-text" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2px' }}>
+            <img src="/logo_five.PNG" alt="Five" style={{ height: '40px' }} />
+            <span className="neon-dot" style={{ marginLeft: '-4px' }}>.</span>
+          </h1>
           <h2 className="form-title">{form.title}</h2>
           <p className="form-description">{form.description}</p>
         </header>

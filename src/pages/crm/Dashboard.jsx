@@ -32,7 +32,10 @@ export default function Dashboard() {
       {/* Sidebar */}
       <aside className="sidebar glass-panel">
         <div className="sidebar-header">
-          <h1 className="logo-text">FIVE<span className="neon-dot">.</span>FORMS</h1>
+          <h1 className="logo-text" style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
+            <img src="/logo_five.PNG" alt="Five" style={{ height: '40px' }} />
+            <span className="neon-dot" style={{ marginLeft: '-4px' }}>.</span>FORMS
+          </h1>
         </div>
         
         <nav className="sidebar-nav">
@@ -70,6 +73,7 @@ export default function Dashboard() {
       <main className="main-content">
         <header className="topbar">
           <h2>Painel CRM</h2>
+
           <div className="user-profile">
             <div className="user-avatar">A</div>
             <span>Admin</span>

@@ -32,7 +32,10 @@ export default function Login() {
     <div className="login-container">
       <div className="login-card glass-panel">
         <div className="login-header">
-          <h1 className="logo-text">FIVE<span className="neon-dot">.</span>FORMS</h1>
+          <h1 className="logo-text" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2px' }}>
+            <img src="/logo_five.PNG" alt="Five" style={{ height: '48px' }} />
+            <span className="neon-dot" style={{ marginLeft: '-4px' }}>.</span>FORMS
+          </h1>
           <p>Faça login para acessar o CRM</p>
         </div>
         
@@ -45,7 +48,7 @@ export default function Login() {
               type="email" 
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="admin@fiveforms.com"
+              placeholder="seu@email.com"
               required
             />
           </div>
@@ -64,6 +67,35 @@ export default function Login() {
           <button type="submit" className="btn-primary w-full" disabled={loading}>
             {loading ? 'Entrando...' : 'Entrar'}
           </button>
+
+          {import.meta.env.DEV && (
+            <button 
+              type="button" 
+              className="btn-secondary w-full" 
+              style={{ marginTop: '1rem', border: '1px dashed #666', background: 'transparent' }}
+              onClick={async () => {
+                setError('');
+                setLoading(true);
+                try {
+                  const res = await api.post('/auth/login', { 
+                    email: 'admin@fiveforms.com', 
+                    password: 'FiveFormsProd2026!' 
+                  });
+                  if (res.data && res.data.token) {
+                    localStorage.setItem('fiveforms_token', res.data.token);
+                    navigate('/crm');
+                  }
+                } catch (err) {
+                  console.error(err);
+                  setError(err.response?.data?.error || 'Erro no login automático.');
+                } finally {
+                  setLoading(false);
+                }
+              }}
+            >
+              Acesso Rápido (Dev)
+            </button>
+          )}
         </form>
       </div>
     </div>
