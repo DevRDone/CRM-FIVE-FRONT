@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { CheckCircle2, ChevronRight, Fingerprint, Phone, Power } from 'lucide-react';
+import { CheckCircle2, ChevronRight, Fingerprint, Phone, Power, FileUp } from 'lucide-react';
 import { formsApi, submissionsApi } from '../../services/api';
 import './FormView.css';
 
@@ -233,6 +233,41 @@ export default function FormView() {
                     </label>
                   );
                 })}
+              </div>
+            )}
+
+            {currentQuestion.type === 'file_pdf' && (
+              <div className="public-file-upload">
+                <label 
+                  className={`public-option-card ${answers[currentQuestion.id] ? 'selected' : ''}`}
+                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px', gap: '16px', borderStyle: 'dashed' }}
+                >
+                  <FileUp size={48} className={answers[currentQuestion.id] ? 'text-accent' : 'text-secondary'} />
+                  <span style={{ fontSize: '18px', fontWeight: '500', color: answers[currentQuestion.id] ? 'var(--accent-color)' : 'var(--text-primary)', textAlign: 'center' }}>
+                    {answers[currentQuestion.id] ? 'Currículo Anexado com Sucesso!' : 'Clique aqui para anexar seu Currículo (PDF)'}
+                  </span>
+                  <span style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Tamanho máximo: 2MB</span>
+                  
+                  <input 
+                    type="file" 
+                    accept="application/pdf"
+                    style={{ display: 'none' }}
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      if (!file) return;
+                      if (file.size > 2 * 1024 * 1024) {
+                        alert('O arquivo é muito grande. O tamanho máximo permitido é 2MB para não sobrecarregar o sistema.');
+                        e.target.value = '';
+                        return;
+                      }
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        handleAnswerChange(reader.result, 'file_pdf');
+                      };
+                      reader.readAsDataURL(file);
+                    }}
+                  />
+                </label>
               </div>
             )}
           </div>

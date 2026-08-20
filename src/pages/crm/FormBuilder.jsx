@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { formsApi } from '../../services/api';
-import { ArrowLeft, Plus, Save, GripVertical, Trash2, Settings, Type, AlignLeft, CheckSquare, CircleDot, Phone, Fingerprint } from 'lucide-react';
+import { ArrowLeft, Plus, Save, GripVertical, Trash2, Settings, Type, AlignLeft, CheckSquare, CircleDot, Phone, Fingerprint, FileUp } from 'lucide-react';
 import './FormBuilder.css';
 
 const QUESTION_TYPES = [
@@ -10,7 +10,8 @@ const QUESTION_TYPES = [
   { id: 'phone', icon: Phone, label: 'Telefone' },
   { id: 'cpf', icon: Fingerprint, label: 'CPF' },
   { id: 'single_choice', icon: CircleDot, label: 'Múltipla Escolha (1 opção)' },
-  { id: 'multiple_choice', icon: CheckSquare, label: 'Caixas de Seleção (Várias opções)' }
+  { id: 'multiple_choice', icon: CheckSquare, label: 'Caixas de Seleção (Várias opções)' },
+  { id: 'file_pdf', icon: FileUp, label: 'Upload de Arquivo (PDF)' }
 ];
 
 export default function FormBuilder() {
@@ -186,6 +187,11 @@ export default function FormBuilder() {
                   {q.type === 'phone' && <input type="text" disabled placeholder="(11) 99999-9999" className="preview-input" />}
                   {q.type === 'cpf' && <input type="text" disabled placeholder="000.000.000-00" className="preview-input" />}
                   {q.type === 'long_text' && <textarea disabled placeholder="Texto longo de resposta" className="preview-textarea" />}
+                  {q.type === 'file_pdf' && (
+                    <div style={{ padding: '16px', border: '1px dashed var(--border-color)', borderRadius: '8px', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <FileUp size={16} /> Área de upload de PDF (até 2MB)
+                    </div>
+                  )}
                   {(q.type === 'single_choice' || q.type === 'multiple_choice') && (
                     <div className="options-editor">
                       {q.options.map((opt, optIndex) => (
